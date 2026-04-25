@@ -30,8 +30,11 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-navy-900/80 backdrop-blur-md border-b border-neutral-700/20">
       <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold text-gold-500 tracking-tight">
-          Nerva<span className="text-neutral-50">X</span>
+        <Link href="/" className="flex items-center gap-2">
+          <img src="/logo.ico" alt="NervaX Logo" className="h-8 w-auto object-contain" />
+          <span className="text-xl font-bold text-gold-500 tracking-tight hidden sm:block">
+            Nerva<span className="text-neutral-50">X</span>
+          </span>
         </Link>
 
         <div className="hidden md:flex items-center gap-8">

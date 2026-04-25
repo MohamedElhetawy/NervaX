@@ -52,8 +52,11 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             {/* Brand Section */}
             <div className="col-span-1 md:col-span-1">
-              <Link href="/" className="text-2xl font-bold text-gold-500 tracking-tight block mb-4">
-                Nerva<span className="text-neutral-50">X</span>
+              <Link href="/" className="flex items-center gap-2 mb-4">
+                <img src="/logo.ico" alt="NervaX Logo" className="h-8 w-auto object-contain" />
+                <span className="text-2xl font-bold text-gold-500 tracking-tight">
+                  Nerva<span className="text-neutral-50">X</span>
+                </span>
               </Link>
               <p className="text-sm text-neutral-400 mb-6 max-w-sm leading-relaxed">
                 Engineering digital experiences that combine stunning aesthetics with high-performance architectures. Building the future of the web, one project at a time.

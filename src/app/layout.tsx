@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "NervaX | Digital Identity & Innovation Hub",
   description: "Portfolio, Tech Showcase, Personal Brand & Proof of Capability",
   keywords: ["portfolio", "developer", "tech", "innovation", "digital identity"],
+  icons: {
+    icon: "/logo.ico",
+  },
 };
 
 export default function RootLayout({
