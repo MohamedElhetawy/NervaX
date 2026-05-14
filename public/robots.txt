@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+Sitemap: https://nerva-x.vercel.app/sitemap.xml

@@ -11,11 +11,11 @@ const skills = [
   { name: "React / Next.js", level: 95 },
   { name: "TypeScript", level: 90 },
   { name: "Node.js", level: 88 },
-  { name: "Python", level: 82 },
+  { name: "Python", level: 90 },
   { name: "Tailwind CSS", level: 95 },
   { name: "PostgreSQL / Supabase", level: 85 },
-  { name: "Docker / DevOps", level: 78 },
-  { name: "System Design", level: 88 },
+  { name: "Docker / DevOps", level: 88 },
+  { name: "System Design", level: 97 },
 ];
 
 const timeline = [
