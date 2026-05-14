@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     icon: "/logo.ico",
   },
   verification: {
-    google: "ycakCakkuGc0PL8jTWhzbH8iacN9pqubbQZAGuC9_IQ",
+    google: "DztqohfeJCReh3F8deR2b87Bg67Bz6WFWOyjYJrHH5E",
   },
 };
 
