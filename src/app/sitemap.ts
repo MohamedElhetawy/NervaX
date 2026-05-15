@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const projects = await getProjects();
 
     const projectEntries = projects.map((project) => ({
-      url: `https://nerva-x.vercel.app/projects/${project.slug}`,
+      url: `https://nerva-x.vercel.app/projects/${project.id.replace(/_/g, "-")}`,
       lastModified: new Date(project.created_at || new Date()),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
