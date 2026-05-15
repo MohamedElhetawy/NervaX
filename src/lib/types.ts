@@ -14,15 +14,19 @@ export interface Message {
 export interface Project {
   id: string;
   title: string;
-  slug: string;
   description: string;
-  content: string;
-  image: string;
   tech_stack: string[];
-  github_url: string | null;
-  live_url: string | null;
-  featured: boolean;
+  images: string[];
+  live_url?: string | null;
+  github_url?: string | null;
   created_at: string;
+  problem?: string;
+  thinking?: string;
+  execution?: string;
+  challenges?: string;
+  result?: string;
+  featured?: boolean;
+  status?: "in-progress" | "completed" | "planning" | "coming-soon";
 }
 
 export interface ContactFormData {

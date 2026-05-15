@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Code } from "lucide-react";
+import { ArrowLeft, ExternalLink, Code, Clock } from "lucide-react";
 import FadeIn from "@/components/FadeIn";
 import Section from "@/components/Section";
 import Button from "@/components/Button";
@@ -13,11 +13,6 @@ interface ProjectDetailClientProps {
 }
 
 export default function ProjectDetailClient({ project }: ProjectDetailClientProps) {
-  // Parse content into case study sections if available
-  const contentSections = project.content
-    ? project.content.split("\n").filter((line) => line.trim())
-    : [];
-
   return (
     <>
       {/* Hero */}
@@ -48,7 +43,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             </div>
 
             <div className="flex gap-3">
-              {project.live_url && (
+              {project.live_url ? (
                 <a
                   href={project.live_url}
                   target="_blank"
@@ -57,8 +52,16 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                 >
                   <ExternalLink size={14} /> Live Demo
                 </a>
+              ) : (
+                <button
+                  disabled
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-500/30 text-gray-400 text-sm font-semibold rounded cursor-not-allowed"
+                  title="قريبا"
+                >
+                  <Clock size={14} /> قريبا
+                </button>
               )}
-              {project.github_url && (
+              {project.github_url ? (
                 <a
                   href={project.github_url}
                   target="_blank"
@@ -67,6 +70,14 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                 >
                   <Code size={14} /> Source Code
                 </a>
+              ) : (
+                <button
+                  disabled
+                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-gray-500/30 text-gray-400 text-sm font-semibold rounded cursor-not-allowed"
+                  title="قريبا"
+                >
+                  <Code size={14} /> Source Code
+                </button>
               )}
             </div>
           </FadeIn>
@@ -74,12 +85,12 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
       </section>
 
       {/* Cover Image */}
-      {project.image && (
-        <Section className="py-0!">
+      {project.images && project.images.length > 0 && (
+        <Section className="py-0">
           <FadeIn>
             <div className="relative aspect-video rounded-lg overflow-hidden border border-neutral-700/20">
               <Image
-                src={project.image}
+                src={project.images[0]}
                 alt={project.title}
                 fill
                 className="object-cover"
@@ -91,27 +102,80 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
         </Section>
       )}
 
-      {/* Content / Case Study */}
-      {contentSections.length > 0 && (
-        <Section>
-          <FadeIn>
-            <p className="text-sm text-gold-500 uppercase tracking-wider mb-2">
-              Case Study
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12">
-              How It Was Built
-            </h2>
-          </FadeIn>
+      {/* Case Study Sections */}
+      <Section>
+        <div className="space-y-16">
+          {project.problem && (
+            <FadeIn>
+              <p className="text-sm text-gold-500 uppercase tracking-wider mb-2">
+                المشكلة / The Problem
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                {typeof project.problem === "string" ? project.problem.split("\n")[0] : project.problem}
+              </h2>
+              <p className="text-neutral-200 leading-relaxed text-lg">
+                {project.problem}
+              </p>
+            </FadeIn>
+          )}
 
-          <div className="space-y-6">
-            {contentSections.map((line, i) => (
-              <FadeIn key={i} delay={i * 0.05}>
-                <p className="text-neutral-200 leading-relaxed">{line}</p>
-              </FadeIn>
-            ))}
-          </div>
-        </Section>
-      )}
+          {project.thinking && (
+            <FadeIn delay={0.1}>
+              <p className="text-sm text-gold-500 uppercase tracking-wider mb-2">
+                الرؤية / The Thinking
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                {typeof project.thinking === "string" ? project.thinking.split("\n")[0] : project.thinking}
+              </h2>
+              <p className="text-neutral-200 leading-relaxed text-lg">
+                {project.thinking}
+              </p>
+            </FadeIn>
+          )}
+
+          {project.execution && (
+            <FadeIn delay={0.2}>
+              <p className="text-sm text-gold-500 uppercase tracking-wider mb-2">
+                التنفيذ / The Execution
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                {typeof project.execution === "string" ? project.execution.split("\n")[0] : project.execution}
+              </h2>
+              <p className="text-neutral-200 leading-relaxed text-lg">
+                {project.execution}
+              </p>
+            </FadeIn>
+          )}
+
+          {project.challenges && (
+            <FadeIn delay={0.3}>
+              <p className="text-sm text-gold-500 uppercase tracking-wider mb-2">
+                التحديات / The Challenges
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                {typeof project.challenges === "string" ? project.challenges.split("\n")[0] : project.challenges}
+              </h2>
+              <p className="text-neutral-200 leading-relaxed text-lg">
+                {project.challenges}
+              </p>
+            </FadeIn>
+          )}
+
+          {project.result && (
+            <FadeIn delay={0.4}>
+              <p className="text-sm text-gold-500 uppercase tracking-wider mb-2">
+                النتيجة / The Result
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                {typeof project.result === "string" ? project.result.split("\n")[0] : project.result}
+              </h2>
+              <p className="text-neutral-200 leading-relaxed text-lg">
+                {project.result}
+              </p>
+            </FadeIn>
+          )}
+        </div>
+      </Section>
 
       {/* CTA */}
       <Section className="bg-navy-800/50">

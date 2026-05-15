@@ -1,59 +1,31 @@
 /**
- * Project data fetching from Supabase.
- * Falls back to empty arrays if Supabase is not configured.
+ * Project data fetching.
+ * Uses local data from data.ts
  */
 
-import { supabase } from "@/lib/supabase";
+import { projects as localProjects } from "@/lib/data";
 import type { Project } from "@/lib/types";
 
 export async function getProjects(): Promise<Project[]> {
-  if (!supabase) return [];
-
-  const { data, error } = await supabase
-    .from("projects")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    console.error("[Projects] Fetch error:", error);
-    return [];
-  }
-
-  return data || [];
+  return localProjects.sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
 }
 
 export async function getFeaturedProjects(): Promise<Project[]> {
-  if (!supabase) return [];
-
-  const { data, error } = await supabase
-    .from("projects")
-    .select("*")
-    .eq("featured", true)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    console.error("[Projects] Featured fetch error:", error);
-    return [];
-  }
-
-  return data || [];
+  return localProjects
+    .filter((p) => p.featured === true)
+    .sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
 }
 
 export async function getProjectBySlug(
   slug: string
 ): Promise<Project | null> {
-  if (!supabase) return null;
-
-  const { data, error } = await supabase
-    .from("projects")
-    .select("*")
-    .eq("slug", slug)
-    .single();
-
-  if (error) {
-    console.error("[Projects] Slug fetch error:", error);
-    return null;
-  }
-
-  return data;
+  // Slugs are derived from IDs by replacing underscores with hyphens
+  const project = localProjects.find(
+    (p) => p.id.replace(/_/g, "-") === slug
+  );
+  return project || null;
 }

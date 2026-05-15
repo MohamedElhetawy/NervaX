@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, Code } from "lucide-react";
+import { ExternalLink, Code, Clock } from "lucide-react";
 
 interface ProjectCardProps {
   slug: string;
@@ -13,6 +13,7 @@ interface ProjectCardProps {
   image: string;
   liveUrl?: string | null;
   githubUrl?: string | null;
+  status?: "in-progress" | "completed" | "planning" | "coming-soon";
 }
 
 export default function ProjectCard({
@@ -23,23 +24,35 @@ export default function ProjectCard({
   image,
   liveUrl,
   githubUrl,
+  status,
 }: ProjectCardProps) {
   return (
     <motion.article
       whileHover={{ y: -4 }}
       transition={{ duration: 0.2 }}
-      className="group bg-navy-800 border border-neutral-700/20 rounded-lg overflow-hidden"
+      className="group bg-navy-800 border border-neutral-700/20 rounded-lg overflow-hidden relative"
     >
-      <div className="relative aspect-video overflow-hidden">
+      {status === "in-progress" && (
+        <div className="absolute top-4 right-4 z-10 px-3 py-1 bg-orange-500/90 text-white text-xs font-semibold rounded-full">
+          جاري العمل
+        </div>
+      )}
+      {status === "coming-soon" && (
+        <div className="absolute top-4 right-4 z-10 px-3 py-1 bg-blue-500/90 text-white text-xs font-semibold rounded-full">
+          قريبا
+        </div>
+      )}
+
+      <div className="relative aspect-video overflow-hidden bg-navy-900/50">
         <Image
-          src={image || "/projects/nervax-platform.jpg"}
+          src={image || "/projects/skeleton-landing.svg"}
           alt={title}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute inset-0 bg-navy-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-          {liveUrl && (
+          {liveUrl ? (
             <a
               href={liveUrl}
               target="_blank"
@@ -49,8 +62,15 @@ export default function ProjectCard({
             >
               <ExternalLink size={18} />
             </a>
+          ) : (
+            <div
+              className="p-3 bg-gray-500/50 text-gray-300 rounded-full cursor-not-allowed"
+              title="قريبا"
+            >
+              <Clock size={18} />
+            </div>
           )}
-          {githubUrl && (
+          {githubUrl ? (
             <a
               href={githubUrl}
               target="_blank"
@@ -60,6 +80,13 @@ export default function ProjectCard({
             >
               <Code size={18} />
             </a>
+          ) : (
+            <div
+              className="p-3 bg-gray-500/50 text-gray-300 rounded-full cursor-not-allowed"
+              title="قريبا"
+            >
+              <Code size={18} />
+            </div>
           )}
         </div>
       </div>

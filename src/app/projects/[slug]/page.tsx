@@ -8,7 +8,7 @@ interface PageProps {
 
 export async function generateStaticParams() {
   const projects = await getProjects();
-  return projects.map((project) => ({ slug: project.slug }));
+  return projects.map((project) => ({ slug: project.id.replace(/_/g, "-") }));
 }
 
 export async function generateMetadata({ params }: PageProps) {

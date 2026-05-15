@@ -40,13 +40,14 @@ export default async function ProjectsPage() {
             {projects.map((project, i) => (
               <FadeIn key={project.id} delay={i * 0.1}>
                 <ProjectCard
-                  slug={project.slug}
+                  slug={project.id.replace(/_/g, "-")}
                   title={project.title}
                   description={project.description}
                   techStack={project.tech_stack}
-                  image={project.image}
+                  image={project.images?.[0] || "/projects/skeleton-landing.svg"}
                   liveUrl={project.live_url}
                   githubUrl={project.github_url}
+                  status={project.status}
                 />
               </FadeIn>
             ))}
